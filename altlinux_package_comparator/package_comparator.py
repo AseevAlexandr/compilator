@@ -6,12 +6,29 @@ class AltLinuxPackageComparator:
 
     def __init__(self, branches):
         self.branches = branches
-        self.packages = {branch: self.get_packages(branch) for branch in branches}
+        self.branches_info = {branch: self.get_branch_info(branch) for branch in branches}
 
-    def get_packages(self, branch):
+    def get_branch_info(self, branch):
         response = requests.get(f"{self.BASE_URL}/{branch}")
         response.raise_for_status()
         return response.json()
+
+    def process_data(self, branch):
+        branch_packages = {}
+
+        for package in self.branches_info[branch]['packages']:
+            if branch_packages.get(package['arch']):
+                branch_packages[package['arch']][package['name']] = package['release']
+            else:
+                branch_packages[package['arch']] = {}
+        return {branch: branch_packages}
+
+    def compare_brunch(self):
+        ...
+
+
+
+p10_packages = set(package['name'] for package in self.packages['p10']['packages'])
 
     def compare_packages(self):
         comparison_result = {}

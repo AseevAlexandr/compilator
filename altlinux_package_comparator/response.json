@@ -1,0 +1,15 @@
+ответ от process_data
+{
+    "p10":
+        {
+        "aarch64":
+            {
+            "pack_1": "alt0_1_alpha.p10",
+            "pack_2": "alt1_betta.p10",
+            ....
+            }
+        },
+        .....
+}
+
+
